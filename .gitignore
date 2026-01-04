@@ -1,0 +1,116 @@
+# ----------------------------------------
+# Environnements virtuels
+# ----------------------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# ----------------------------------------
+# Python
+# ----------------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+dist/
+build/
+*.spec
+
+# ----------------------------------------
+# Notebooks
+# ----------------------------------------
+.ipynb_checkpoints/
+
+# ----------------------------------------
+# Modèles ML & artefacts
+# ----------------------------------------
+models/*.joblib
+models/*.pkl
+models/*.pytorch
+models/*.bin
+
+# Garde seulement les versions finales si tu veux :
+# !models/final_lightgbm_model.joblib
+# !models/featurebuilder.pkl
+# !models/feature_names.json
+
+# ----------------------------------------
+# MLflow
+# ----------------------------------------
+mlruns/
+mlartifacts/
+mlflow.db
+
+# ----------------------------------------
+# Logs & fichiers temporaires
+# ----------------------------------------
+logs/
+tmp/
+temp/
+*.log
+
+# ----------------------------------------
+# Images générées & artefacts Streamlit
+# ----------------------------------------
+*.png
+*.jpg
+*.jpeg
+*.svg
+
+# Conserve les images UI nécessaires :
+!streamlit_app/banner.png
+
+# ----------------------------------------
+# Outils & IDE
+# ----------------------------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# ----------------------------------------
+# Docker
+# ----------------------------------------
+*.tar
+*.img
+
+# ----------------------------------------
+# Windows & Mac files
+# ----------------------------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------------------------
+# Rapports, PDF, CSV volumineux
+# ----------------------------------------
+*.pdf
+*.csv
+*.xlsx
+*.xls
+*.pptx
+
+
+# ----------------------------------------
+# API & secrets
+# ----------------------------------------
+.env
+.env.*
+
+
+# ----------------------------------------
+# Tests & cache
+# ----------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ----------------------------------------
+# Données (à NE PAS versionner)
+# ----------------------------------------
+data/raw/
+data/processed/*
+!data/processed/df_test_sample.csv
+data/interim/
+data/external/
