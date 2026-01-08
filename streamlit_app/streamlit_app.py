@@ -432,7 +432,7 @@ if st.session_state.prediction_result:
         client_x = sample[var_x]
         client_y = sample[var_y]
 
-        fig, ax = plt.subplots(figsize=(6, 4))
+        fig, ax = plt.subplots(figsize=(4, 3))
 
         # Population
         ax.scatter(
