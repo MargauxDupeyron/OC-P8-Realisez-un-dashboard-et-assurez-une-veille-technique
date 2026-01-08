@@ -29,7 +29,7 @@ from config.api_config import (
     HEALTH_ENDPOINT
 )
 
-DATA_PATH = "data/df_test_sample.csv"
+DATA_PATH = "streamlit_app/data/df_test_sample.csv"
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # =========================================================
@@ -393,6 +393,8 @@ if st.session_state.prediction_result:
             st.dataframe(
                 df_test[[selected_var]].describe().T
                 .rename(columns={
+                    "count": "Nombre de valeurs",
+                    "std": "Ecart-type",
                     "mean": "Moyenne",
                     "min": "Minimum",
                     "max": "Maximum"
@@ -420,13 +422,25 @@ if st.session_state.prediction_result:
         ax.set_title("Variables les plus influentes")
 
         st.pyplot(fig)
-        plt.close(fig)
 
         st.caption(
             "Barres rouges : variables qui augmentent le risque de défaut. "
             "Barres vertes : variables qui réduisent le risque."
         )
 
+        with st.expander("Voir l’explication sous forme de tableau"):
+            st.dataframe(
+                top
+                .drop(columns=["impact"])
+                .rename(columns={
+                    "feature": "Variable",
+                    "contribution": "Impact sur le risque",
+                    "value": "Valeur client"
+                }),
+                use_container_width=True
+            )
+
+        plt.close(fig)
 
         positive = top[top["contribution"] > 0]["feature"].tolist()
         negative = top[top["contribution"] < 0]["feature"].tolist()
@@ -466,6 +480,15 @@ if st.session_state.prediction_result:
         ax.set_xlabel("Importance moyenne")
 
         st.pyplot(fig)
+
+        st.caption(
+            "Classement des variables selon leur importance moyenne "
+            "dans les décisions du modèle."
+        )
+
+        with st.expander("Voir les importances sous forme de tableau"):
+            st.dataframe(df_global, use_container_width=True)
+
         plt.close(fig)
 
 # =========================================================
