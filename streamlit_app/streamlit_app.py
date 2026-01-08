@@ -432,46 +432,50 @@ if st.session_state.prediction_result:
         client_x = sample[var_x]
         client_y = sample[var_y]
 
-        fig, ax = plt.subplots(figsize=(4, 3))
+        col_left, col_center, col_right = st.columns([1, 3, 1])
 
-        # Population
-        ax.scatter(
-            df_test[var_x],
-            df_test[var_y],
-            alpha=0.3,
-            label="Population",
-            color="#7f8c8d"
-        )
+        with col_center:
 
-        # Client
-        if pd.notna(client_x) and pd.notna(client_y):
+            fig, ax = plt.subplots(figsize=(5, 3))
+
+            # Population
             ax.scatter(
-                client_x,
-                client_y,
-                color="#B00020",
-                s=120,
-                edgecolor="black",
-                label="Client"
-            )
-        else:
-            st.warning(
-                "⚠️ Une des deux variables n’est pas renseignée pour ce client. "
-                "Le point client ne peut pas être affiché."
+                df_test[var_x],
+                df_test[var_y],
+                alpha=0.3,
+                label="Population",
+                color="#7f8c8d"
             )
 
-        ax.set_xlabel(var_x)
-        ax.set_ylabel(var_y)
-        ax.set_title(f"Relation entre {var_x} et {var_y}")
-        ax.legend()
+            # Client
+            if pd.notna(client_x) and pd.notna(client_y):
+                ax.scatter(
+                    client_x,
+                    client_y,
+                    color="#B00020",
+                    s=120,
+                    edgecolor="black",
+                    label="Client"
+                )
+            else:
+                st.warning(
+                    "⚠️ Une des deux variables n’est pas renseignée pour ce client. "
+                    "Le point client ne peut pas être affiché."
+                )
 
-        st.pyplot(fig)
+            ax.set_xlabel(var_x)
+            ax.set_ylabel(var_y)
+            ax.set_title(f"Relation entre {var_x} et {var_y}")
+            ax.legend()
 
-        st.caption(
-            "Ce graphique permet d’analyser la relation entre deux variables "
-            "dans la population. Le client est positionné lorsqu’il dispose des deux valeurs."
-        )
+            st.pyplot(fig)
 
-        plt.close(fig)
+            st.caption(
+                "Ce graphique permet d’analyser la relation entre deux variables "
+                "dans la population. Le client est positionné lorsqu’il dispose des deux valeurs."
+            )
+
+            plt.close(fig)
 
 
     # =========================================================
