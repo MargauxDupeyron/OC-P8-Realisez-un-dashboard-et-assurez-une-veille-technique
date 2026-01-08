@@ -1,0 +1,25 @@
+# Environnements
+.venv/
+.env
+
+# Artefacts lourds / temporaires
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Notebooks de travail
+*.ipynb_checkpoints/
+projet7_modelisation_mlflow.ipynb
+
+# Données brutes volumineuses (si pas nécessaires pour l’API)
+data/raw/
+courses/
+artifacts/
+mlartifacts/
+mlruns/
+mlruns.db
+
+# Rapports / outputs locaux
+reports/
+streamlit_app/

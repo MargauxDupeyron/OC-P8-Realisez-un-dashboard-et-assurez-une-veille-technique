@@ -1,0 +1,9 @@
+{
+    "threshold": 0.27,
+    "gain": -52874.0,
+    "business_function": {
+        "tp": 2,
+        "fp": 5,
+        "fn": 12
+    }
+}
