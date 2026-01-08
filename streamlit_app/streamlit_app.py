@@ -29,8 +29,8 @@ from config.api_config import (
     HEALTH_ENDPOINT
 )
 
-DATA_PATH = "streamlit_app/data/df_test_sample.csv"
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(APP_DIR, "data", "df_test_sample.csv")
 
 # =========================================================
 # 2. LOAD FEATURES
