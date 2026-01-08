@@ -327,11 +327,13 @@ if st.session_state.prediction_result:
         "value": shap_api["features"]
     }).assign(impact=lambda x: x["contribution"].abs()).sort_values("impact", ascending=False)
 
-    tab_profile, tab_local, tab_global = st.tabs([
-    "Comparaison client / population",
-    "Explication de la décision",
-    "Importance globale"
+    tab_profile, tab_bivariate, tab_local, tab_global = st.tabs([
+        "Comparaison client / population",
+        "Analyse bi-variée",
+        "Explication de la décision",
+        "Importance globale"
     ])
+
 
     # =========================================================
     # TAB 1 – COMPARAISON CLIENT / POPULATION
@@ -402,9 +404,78 @@ if st.session_state.prediction_result:
                 use_container_width=True
             )
 
+    # =========================================================
+    # TAB 2 – ANALYSE BI-VARIÉE
+    # =========================================================
+    with tab_bivariate:
+        st.markdown("### Analyse bi-variée entre deux variables")
+
+        numeric_cols = df_test.select_dtypes(include=["float", "int"]).columns.tolist()
+
+        col_x, col_y = st.columns(2)
+
+        with col_x:
+            var_x = st.selectbox(
+                "Variable X",
+                numeric_cols,
+                key="bivariate_x"
+            )
+
+        with col_y:
+            var_y = st.selectbox(
+                "Variable Y",
+                numeric_cols,
+                index=1 if len(numeric_cols) > 1 else 0,
+                key="bivariate_y"
+            )
+
+        client_x = sample[var_x]
+        client_y = sample[var_y]
+
+        fig, ax = plt.subplots(figsize=(6, 4))
+
+        # Population
+        ax.scatter(
+            df_test[var_x],
+            df_test[var_y],
+            alpha=0.3,
+            label="Population",
+            color="#7f8c8d"
+        )
+
+        # Client
+        if pd.notna(client_x) and pd.notna(client_y):
+            ax.scatter(
+                client_x,
+                client_y,
+                color="#B00020",
+                s=120,
+                edgecolor="black",
+                label="Client"
+            )
+        else:
+            st.warning(
+                "⚠️ Une des deux variables n’est pas renseignée pour ce client. "
+                "Le point client ne peut pas être affiché."
+            )
+
+        ax.set_xlabel(var_x)
+        ax.set_ylabel(var_y)
+        ax.set_title(f"Relation entre {var_x} et {var_y}")
+        ax.legend()
+
+        st.pyplot(fig)
+
+        st.caption(
+            "Ce graphique permet d’analyser la relation entre deux variables "
+            "dans la population. Le client est positionné lorsqu’il dispose des deux valeurs."
+        )
+
+        plt.close(fig)
+
 
     # =========================================================
-    # TAB 2 – EXPLICATION LOCALE (SHAP)
+    # TAB 3 – EXPLICATION LOCALE (SHAP)
     # =========================================================
     with tab_local:
         st.markdown("### Principales raisons de la décision")
@@ -459,7 +530,7 @@ if st.session_state.prediction_result:
             )
 
     # =========================================================
-    # TAB 3 – IMPORTANCE GLOBALE
+    # TAB 4 – IMPORTANCE GLOBALE
     # =========================================================
     with tab_global:
         st.markdown("### Variables influentes sur l’ensemble des clients")
