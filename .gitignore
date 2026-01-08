@@ -114,3 +114,7 @@ data/processed/*
 !data/processed/df_test_sample.csv
 data/interim/
 data/external/
+
+# Autoriser le CSV de test pour Streamlit (P8)
+!streamlit_app/data/
+!streamlit_app/data/df_test_sample.csv
