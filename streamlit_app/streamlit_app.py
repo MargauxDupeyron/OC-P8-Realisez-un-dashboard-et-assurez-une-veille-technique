@@ -198,17 +198,9 @@ if "DAYS_EMPLOYED" in sample.index:
 st.sidebar.markdown("---")
 st.sidebar.markdown("### 💰 Situation financière")
 
-if "PAYMENT_RATE" in sample.index:
-    st.sidebar.markdown(f"**Taux d’effort estimé :** {sample['PAYMENT_RATE']:.2%}")
-
 if "ANNUITY_INCOME_PERC" in sample.index:
     st.sidebar.markdown(
         f"**Part du revenu consacrée au crédit :** {sample['ANNUITY_INCOME_PERC']:.2%}"
-    )
-
-if "INCOME_CREDIT_PERC" in sample.index:
-    st.sidebar.markdown(
-        f"**Ratio revenu / crédit :** {sample['INCOME_CREDIT_PERC']:.2f}"
     )
 
 # =========================================================
