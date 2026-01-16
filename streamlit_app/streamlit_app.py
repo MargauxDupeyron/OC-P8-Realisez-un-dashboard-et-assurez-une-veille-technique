@@ -8,6 +8,7 @@ import numpy as np
 import streamlit as st
 import matplotlib.pyplot as plt
 from typing import Any
+from pathlib import Path
 
 # =========================================================
 # 0. PATH SETUP
@@ -36,7 +37,10 @@ DATA_PATH = os.path.join(APP_DIR, "data", "df_test_sample.csv")
 # 2. LOAD FEATURES
 # =========================================================
 
-FEATURES_PATH = os.path.abspath(os.path.join(APP_DIR, "../models/feature_names.json"))
+APP_DIR = Path(__file__).resolve().parent
+
+FEATURES_PATH = APP_DIR / "models" / "feature_names.json"
+
 with open(FEATURES_PATH, "r") as f:
     FEATURE_NAMES = json.load(f)
 
